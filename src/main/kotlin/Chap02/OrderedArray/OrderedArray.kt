@@ -128,15 +128,56 @@ class OrderedArray(max: Int) {
         println()
     }
 
+    fun merge(arr2: OrderedArray): OrderedArray {
+        val arr1 = this
+        val mergedArraySize = arr1.size() + arr2.size()
+
+        val mergedArray = OrderedArray(mergedArraySize)
+
+        var pointer1 = 0
+        var pointer2 = 0
+
+        for (pointer in 0 until mergedArraySize) {
+
+            if (pointer1 < arr1.size() && pointer2 < arr2.size()) {
+                if (arr1.a[pointer1] < arr2.a[pointer2]) {
+                    mergedArray.insert(arr1.a[pointer1])
+                    pointer1++
+                } else {
+                    mergedArray.insert(arr2.a[pointer2])
+                    pointer2++
+                }
+            } else if (pointer1 < arr1.size()) {
+                mergedArray.insert(arr1.a[pointer1])
+                pointer1++
+            } else {
+                mergedArray.insert(arr2.a[pointer2])
+                pointer2++
+            }
+
+        }
+
+        return mergedArray
+    }
+
 
 }
 
 fun main(args: Array<String>) {
-    val maxSize = 100           // array size
+//    main_1(args)
+    main_2(args)
+}
 
-    val arr = OrderedArray(maxSize) // create the array
+/**
+ * Default
+ */
+private fun main_1(args: Array<String>) {
 
-    arr.insert(77)               // insert 10 items
+    val maxSize = 100
+
+    val arr = OrderedArray(maxSize)
+
+    arr.insert(77)
     arr.insert(22)
     arr.insert(44)
     arr.insert(55)
@@ -147,17 +188,45 @@ fun main(args: Array<String>) {
     arr.insert(66)
     arr.insert(33)
 
-    arr.display()                // display items
+    arr.display()
 
-    val searchKey = 55L           // search for item
+    val searchKey = 80L
     if (arr.find(searchKey) != arr.size())
         System.out.println("Found " + searchKey)
     else
         System.out.println("Can't find " + searchKey)
 
-    arr.delete(0)               // delete 3 items
+    arr.delete(0)
     arr.delete(55)
     arr.delete(99)
 
-    arr.display()               // display items again
-}  // end main()
+    arr.display()
+}
+
+/**
+ * Programs 2.5
+ */
+private fun main_2(args: Array<String>) {
+
+    val arr1 = OrderedArray(7)
+    arr1.insert(23)
+    arr1.insert(16)
+    arr1.insert(43)
+    arr1.insert(91)
+    arr1.insert(22)
+    arr1.insert(1)
+    arr1.insert(9)
+
+    val arr2 = OrderedArray(5)
+    arr2.insert(19)
+    arr2.insert(33)
+    arr2.insert(54)
+    arr2.insert(6)
+    arr2.insert(88)
+
+    val mergedArray = arr1.merge(arr2)
+
+    arr1.display()
+    arr2.display()
+    mergedArray.display()
+}

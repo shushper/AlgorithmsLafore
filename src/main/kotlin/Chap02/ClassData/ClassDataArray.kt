@@ -14,7 +14,7 @@ class Person(val last: String, val firstName: String, val age: Int) {
 
 
 internal class ClassDataArray(max: Int) {
-    private val a: Array<Person?> = kotlin.arrayOfNulls<Person?>(max)
+    private val a: Array<Person?> = arrayOfNulls<Person?>(max)
     private var nElems: Int = 0
 
 
